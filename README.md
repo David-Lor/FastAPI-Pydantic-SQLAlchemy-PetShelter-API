@@ -50,4 +50,6 @@ make test
 
 ## Changelog
 
-TODO
+- 0.0.1:
+  - initial version
+  - API skeleton
