@@ -1,6 +1,6 @@
 # FastAPI + Pydantic + SQLAlchemy - "Pet Shelter" REST API Example
 
-This project aims to be an example of a full REST API, created with FastAPI & Pydantic, using async SQLAlchemy to persist the data on a supported database (currently using PostgreSQL).
+This project aims to be an example of a full REST API, created with FastAPI & Pydantic, using SQLAlchemy to persist the data on a supported database (currently using PostgreSQL).
 
 ## Main principles
 
