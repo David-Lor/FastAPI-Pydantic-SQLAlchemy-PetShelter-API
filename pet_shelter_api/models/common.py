@@ -2,11 +2,12 @@ import pydantic
 from sqlalchemy import String
 from sqlalchemy.ext.declarative import declarative_base
 
-from pet_shelter_api.helpers import snakecase_to_camelcase
+from ..services.database import database
+from ..helpers import snakecase_to_camelcase
 
 __all__ = ("ORMBase", "STRING_MAX_LENGTH", "STRING", "UUID", "BaseModel")
 
-ORMBase = declarative_base()
+ORMBase = declarative_base(bind=database)
 """Declarative Base is used as base class for all the ORM models"""
 
 STRING_MAX_LENGTH = 255
