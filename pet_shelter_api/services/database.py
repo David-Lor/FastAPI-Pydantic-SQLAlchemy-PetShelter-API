@@ -17,7 +17,7 @@ class Database:
         self._sessionmaker = sessionmaker(bind=self._engine)
 
     def _create_engine(self) -> sqlalchemy.engine.Engine:
-        return sqlalchemy.create_engine(self._uri, future=True)
+        return sqlalchemy.create_engine(self._uri)
 
     def close(self):
         self._engine.dispose()
