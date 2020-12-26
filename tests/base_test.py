@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 
 from pet_shelter_api import app
+from pet_shelter_api.services.database import database
 
 __all__ = ("BaseAPITest",)
 
@@ -12,3 +13,4 @@ class BaseAPITest:
     @classmethod
     def setup_class(cls):
         cls.client = TestClient(app)
+        database.wait_for()
