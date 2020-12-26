@@ -17,7 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
         with:
-          depth: 1
+          fetch-depth: 1
       - name: Setup Python
         uses: actions/setup-python@v1
         with:
