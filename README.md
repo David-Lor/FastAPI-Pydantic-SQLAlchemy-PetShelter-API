@@ -9,7 +9,7 @@ The main principles intended to follow are:
 - Usage of Pydantic models for all request/response bodies
 - Usage of Alembic migrations for SQLAlchemy
 - Persistence of different data entities (different tables on a database), with relationships between them
-- Request-handling codebase organized in `request handling`, `controller`, `repository`
+- Request-handling codebase organized in `request handling`, `repository`
 - Contextual logging (each log record have its request id), using Loguru
 - Create the whole OpenAPI documentation with the maximum detail, including full, detailed models for requests, responses and errors.
 - Usage of Pydantic BaseSettings to load settings from .env file or environment variables

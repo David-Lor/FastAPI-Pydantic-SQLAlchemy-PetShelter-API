@@ -1,7 +1,10 @@
+import pydantic
 from sqlalchemy import String
 from sqlalchemy.ext.declarative import declarative_base
 
-__all__ = ("ORMBase", "STRING_MAX_LENGTH", "STRING", "UUID")
+from pet_shelter_api.helpers import snakecase_to_camelcase
+
+__all__ = ("ORMBase", "STRING_MAX_LENGTH", "STRING", "UUID", "BaseModel")
 
 ORMBase = declarative_base()
 """Declarative Base is used as base class for all the ORM models"""
@@ -15,3 +18,29 @@ STRING = String(STRING_MAX_LENGTH)
 """String column type"""
 UUID = String(UUID_LENGTH)
 """UUID column type"""
+
+
+class BaseModel(pydantic.BaseModel):
+    """Custom pydantic BaseModel used widely on all the API models. Features:
+
+    - all model fields, defined as camel_case (standard Python notation), are automatically aliased with their
+      camelCase representation. Request and response models will use the camelCase (more canonical for JSON)
+    - strip whitespaces on any string
+    - orm_mode enabled
+    - method to convert a BaseModel instance into its associated ORM class model
+    """
+
+    class Config:
+        orm_mode = True
+        orm_model = None
+        anystr_strip_whitespace = True
+        allow_population_by_field_name = True
+        alias_generator = snakecase_to_camelcase
+
+    # TODO force exclude_none=True on dict() method, if required
+
+    def to_orm(self):
+        """Return an instance of the ORM class defined in Config.orm_model, with the current data of the object"""
+        if not self.Config.orm_model:
+            raise AttributeError("Config.orm_model is undefined")
+        return self.Config.orm_model(**self.dict(by_alias=False))
