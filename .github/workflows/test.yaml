@@ -6,6 +6,7 @@ jobs:
   test:
     name: Test on Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         python-version:
@@ -13,6 +14,17 @@ jobs:
           - "3.7"
           - "3.8"
           - "3.9"
+
+    services:
+      mysql:
+        image: mysql:8
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_USER: user
+          MYSQL_PASSWORD: user
+          MYSQL_DATABASE: pet-shelter-test
+
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -29,3 +41,7 @@ jobs:
         run: make install-test-requirements
       - name: Test
         run: make test
+        env:
+          DB_USER: user
+          DB_PASSWORD: user
+          DB_DATABASE: pet-shelter-test
