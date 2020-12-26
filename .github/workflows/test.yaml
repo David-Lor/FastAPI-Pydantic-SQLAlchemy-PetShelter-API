@@ -21,6 +21,7 @@ jobs:
         ports:
           - 3306:3306
         env:
+          MYSQL_ROOT_PASSWORD: root
           MYSQL_USER: user
           MYSQL_PASSWORD: user
           MYSQL_DATABASE: pet-shelter-test
@@ -42,6 +43,6 @@ jobs:
       - name: Test
         run: make test
         env:
-          DB_USER: user
-          DB_PASSWORD: user
+          DB_USER: root
+          DB_PASSWORD: root
           DB_DATABASE: pet-shelter-test
