@@ -1,4 +1,7 @@
+import os
+import subprocess
 import contextlib
+import atexit
 from typing import Optional
 
 import wait4it
@@ -15,6 +18,7 @@ class Database:
         self._uri = settings.uri
         self._engine = self._create_engine()
         self._sessionmaker = sessionmaker(bind=self._engine)
+        atexit.register(self.close)
 
     def _create_engine(self) -> sqlalchemy.engine.Engine:
         return sqlalchemy.create_engine(self._uri)
@@ -40,6 +44,14 @@ class Database:
 
         finally:
             session.close()
+
+    def prepare(self):
+        self.wait_for()
+        self.run_migrations()
+
+    @staticmethod
+    def run_migrations():
+        subprocess.check_output(["alembic", "upgrade", "head"], cwd=os.getcwd())
 
     @staticmethod
     def wait_for(timeout: float = 5):

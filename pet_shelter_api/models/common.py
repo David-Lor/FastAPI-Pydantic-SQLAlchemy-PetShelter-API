@@ -40,6 +40,10 @@ class BaseModel(pydantic.BaseModel):
 
     # TODO force exclude_none=True on dict() method, if required
 
+    def dict_alias(self, *args, **kwargs):
+        kwargs["by_alias"] = True
+        return self.dict(*args, **kwargs)
+
     def to_orm(self):
         """Return an instance of the ORM class defined in Config.orm_model, with the current data of the object"""
         if not self.Config.orm_model:

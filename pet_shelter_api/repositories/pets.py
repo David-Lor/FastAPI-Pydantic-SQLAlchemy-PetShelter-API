@@ -25,3 +25,8 @@ class PetRepository:
         with database.session_scope(session=session) as session:
             pet_orm: PetORM = session.query(PetORM).filter_by(pet_id=pet_id).one()
             return PetRead.from_orm(pet_orm)
+
+    @classmethod
+    def delete_all(cls):
+        with database.session_scope() as session:
+            session.query(PetORM).delete()
