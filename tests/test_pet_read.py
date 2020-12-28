@@ -9,7 +9,12 @@ class TestGetPet(BaseAPITest):
 
     @classmethod
     def setup_class(cls):
+        super().setup_class()
         cls.pet = get_existing_pet()
+
+    @classmethod
+    def teardown_class(cls):
+        clear_database()
 
     def request(self, pet_id: str):
         r = self.client.get("/pets/" + pet_id)
@@ -19,4 +24,4 @@ class TestGetPet(BaseAPITest):
     def test_get_pet(self):
         r = self.request(self.pet.pet_id)
         assert r.status_code == 200
-        assert r.json() == self.pet.dict()
+        assert r.json() == self.pet.dict_alias()
