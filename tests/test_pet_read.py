@@ -16,9 +16,12 @@ class TestGetPet(BaseAPITest):
         return self.client.get("/pets/" + pet_id)
 
     def test_get_pet(self):
+        """Get an existing pet by its id.
+        Should return 200 and the PetRead object as response body.
+        """
         r = self.request(self.pet.pet_id)
         assert r.status_code == 200
-        assert r.json() == self.pet.dict_alias()
+        assert r.json() == self.pet.dict()
 
     # TODO test get non existing pet
     # def test_get_nonexisting_pet(self):

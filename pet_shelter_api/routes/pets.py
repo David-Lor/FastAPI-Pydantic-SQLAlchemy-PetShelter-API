@@ -11,7 +11,7 @@ from ..repositories.pets import PetRepository
 router = APIRouter()
 
 
-@router.get("/{pet_id}", response_model=PetRead, description="Get a single existing ped by its unique identifier")
+@router.get("/{pet_id}", response_model=PetRead, description="Get a single existing pet by its unique identifier")
 def get_pet(pet_id: str):
     return PetRepository.get(pet_id)
 
