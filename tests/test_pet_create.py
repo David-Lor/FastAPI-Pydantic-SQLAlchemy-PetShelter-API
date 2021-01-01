@@ -19,7 +19,7 @@ class TestGetPet(BaseAPITest):
         The created pet should exist.
         """
         pet_create = get_pet_create()
-        r = self.request(pet_create.dict_alias())
+        r = self.request(pet_create.dict())
         assert r.status_code == 201
 
         response_pet = PetRead(**r.json())

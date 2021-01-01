@@ -27,9 +27,10 @@ class BaseModel(pydantic.BaseModel):
 
     - all model fields, defined as camel_case (standard Python notation), are automatically aliased with their
       camelCase representation. Request and response models will use the camelCase (more canonical for JSON)
+    - "dict" method outputs aliased (camelCase) variable names
     - strip whitespaces on any string
     - orm_mode enabled
-    - method to convert a BaseModel instance into its associated ORM class model
+    - new "to_orm" method to convert a BaseModel instance into its associated ORM class model
     """
 
     class Config:
@@ -39,11 +40,10 @@ class BaseModel(pydantic.BaseModel):
         allow_population_by_field_name = True
         alias_generator = snakecase_to_camelcase
 
-    # TODO force exclude_none=True on dict() method, if required
-
-    def dict_alias(self, *args, **kwargs):
-        kwargs["by_alias"] = True
-        return self.dict(*args, **kwargs)
+    def dict(self, *args, **kwargs):
+        # TODO force exclude_none=True on dict() method, if required
+        kwargs.setdefault("by_alias", True)
+        return super().dict(*args, **kwargs)
 
     def to_orm(self):
         """Return an instance of the ORM class defined in Config.orm_model, with the current data of the object"""
