@@ -45,7 +45,7 @@ class BaseModel(pydantic.BaseModel):
         kwargs.setdefault("by_alias", True)
         return super().dict(*args, **kwargs)
 
-    def to_orm(self):
+    def to_orm(self) -> ORMBase:
         """Return an instance of the ORM class defined in Config.orm_model, with the current data of the object"""
         if not self.Config.orm_model:
             raise AttributeError("Config.orm_model is undefined")
