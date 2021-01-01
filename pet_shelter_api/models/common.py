@@ -7,6 +7,7 @@ from ..helpers import snakecase_to_camelcase
 
 __all__ = ("ORMBase", "STRING_MAX_LENGTH", "STRING", "UUID", "BaseModel")
 
+# TODO remove bind (not required when using alembic)
 ORMBase = declarative_base(bind=database)
 """Declarative Base is used as base class for all the ORM models"""
 

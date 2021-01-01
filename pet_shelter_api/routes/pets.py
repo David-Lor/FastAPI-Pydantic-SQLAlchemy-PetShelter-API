@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from fastapi import status as statuscode
 
 from ..models.pets.pet_create import PetCreate
 
@@ -10,11 +11,11 @@ from ..repositories.pets import PetRepository
 router = APIRouter()
 
 
-@router.get("/{pet_id}", description="Get a single existing ped by its unique identifier", response_model=PetRead)
+@router.get("/{pet_id}", response_model=PetRead, description="Get a single existing ped by its unique identifier")
 def get_pet(pet_id: str):
     return PetRepository.get(pet_id)
 
 
-@router.post("", description="Create a new pet", response_model=PetRead)
+@router.post("", response_model=PetRead, status_code=statuscode.HTTP_201_CREATED, description="Create a new pet",)
 def create_pet(pet_create: PetCreate):
     return PetRepository.create(pet_create)

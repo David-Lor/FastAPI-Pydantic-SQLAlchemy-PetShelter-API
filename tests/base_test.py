@@ -3,6 +3,8 @@ from requests import Session
 
 from pet_shelter_api import app
 
+from .helpers import clear_database
+
 __all__ = ("BaseAPITest",)
 
 
@@ -16,3 +18,7 @@ class BaseAPITest:
             # Usage of context-manager to trigger app events when using TestClient:
             # https://fastapi.tiangolo.com/advanced/testing-events/
             cls.client = client
+
+    @classmethod
+    def teardown_class(cls):
+        clear_database()

@@ -15,6 +15,7 @@ except ModuleNotFoundError:
     sys.path.append(os.getcwd())
     from pet_shelter_api.services.database import database
     from pet_shelter_api.models.common import ORMBase
+    # TODO Verify if importing each ORM model is necessary
     from pet_shelter_api.models.pets.pet_orm import PetORM
 
 
