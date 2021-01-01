@@ -1,7 +1,7 @@
 from pydantic import Field
 
 from .pet_orm import PetORM
-from ..common import BaseModel
+from ..base import BaseModel
 
 __all__ = ("PetCreate",)
 

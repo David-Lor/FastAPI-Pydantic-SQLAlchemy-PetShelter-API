@@ -1,6 +1,6 @@
 from sqlalchemy import Column
 
-from ..common import ORMBase, UUID, STRING
+from ..base import ORMBase, UUID, STRING
 from ...helpers import get_uuid
 
 
